@@ -1,5 +1,5 @@
 # Digital Store — aplicação front-end
-
+Equipe: Marcos Emanuel Alves Dias (individual)
 Implementação em React, JavaScript, Vite, React Router e CSS puro. As três páginas utilizam dados locais; não há backend, autenticação, pedidos ou pagamentos reais.
 
 ## Executar
