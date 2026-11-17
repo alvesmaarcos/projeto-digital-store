@@ -1,3 +1,60 @@
+# Digital Store — aplicação front-end
+
+Implementação em React, JavaScript, Vite, React Router e CSS puro. As três páginas utilizam dados locais; não há backend, autenticação, pedidos ou pagamentos reais.
+
+## Executar
+
+Requer Node.js 22.12+ e npm. Validado com Node.js 26.
+
+```sh
+npm ci
+npm run dev
+```
+
+Abra o endereço local informado pelo Vite. Comandos de verificação:
+
+```sh
+npm run lint
+npm test
+npm run build
+npm run preview
+```
+
+O build é gerado em `dist`. Em uma hospedagem futura, configure o fallback de rotas SPA para `index.html`.
+
+## Organização e integração futura
+
+- `src/pages`: Home, listagem, detalhes e layout compartilhado.
+- `src/components`: componentes de apresentação, galeria, filtros e painel acessível.
+- `src/data/products.js`: catálogo demonstrativo de 12 produtos.
+- `src/services/products.js`: adaptador assíncrono com `listProducts({ search })` e `getProductById(id)`.
+- `src/hooks/useResource.js`: carregamento, erro, nova tentativa e descarte de respostas de telas anteriores.
+- `src/test`: testes do catálogo, navegação, busca, galeria, seleção e estados assíncronos.
+
+Na integração futura, substitua o adaptador de dados por chamadas HTTP, mantendo a interface consumida pelas páginas. `listProducts` resolve um array; `getProductById` resolve um produto ou `null`; falhas rejeitam a Promise. O modelo contém `id`, `name`, `category`, `brand`, `image`, `images` (`src` e `alt`), `price`, `priceDiscount` opcional, `description`, `reference`, `stars`, `rating`, `sizes` e `colors`. Mapeie a resposta do futuro backend para esse modelo. Endpoints, credenciais e contratos HTTP ainda não foram definidos. Nunca coloque segredos no bundle do front-end.
+
+## Rotas e comportamento
+
+- `/`: Home com carrossel manual e oito produtos em alta.
+- `/products?filter=termo`: busca por nome, ignorando acentos, caixa e espaços externos; a contagem vem do catálogo.
+- `/produtos`: redirecionamento para `/products`, mantendo a consulta.
+- `/product/:id`: detalhes, galeria, tamanhos, cores e recomendações.
+- Rotas desconhecidas e identificadores inexistentes possuem telas de retorno.
+
+Filtros e ordenação são exclusivamente visuais: mudar suas seleções não altera a lista. Tamanho e cor são estados locais independentes. Comprar e ações de conta exibem um aviso de indisponibilidade, sem persistência ou simulação de compra concluída. O carrinho é apenas ilustrativo, sem contagem fictícia. Links institucionais levam a uma tela informativa de indisponibilidade; categorias sem itens apresentam estado vazio.
+
+Menu e filtros móveis fecham por botão, Escape ou sobreposição e mantêm o foco dentro do painel. A interface oferece labels, texto alternativo, foco visível, link para pular a navegação e respeito à preferência por movimento reduzido.
+
+## Referências visuais e limitações
+
+Layout baseado nas capturas desktop/mobile fornecidas e nos requisitos abaixo. As imagens de coleções são as originais disponíveis. As fotos de banners e tênis do repositório **não são os recortes do protótipo**: foram reutilizadas como imagens ilustrativas, com textos de campanha adaptados. As cinco fotos de detalhe também são exemplos de catálogo, não variantes reais de cada item. Para fidelidade integral, substitua-as pelos assets exportados do Figma; não foram usadas capturas das telas como interface. Ícones de categorias são aproximações vetoriais. A fonte Inter usa Google Fonts, com fallback Arial quando offline.
+
+As quantidades, avaliações e preços são demonstrativos; descontos dos produtos são calculados a partir dos preços. Os selos das coleções são conteúdo promocional ilustrativo. O ano do rodapé é dinâmico. Deploy e PR não foram realizados.
+
+---
+
+# Documentação original do projeto
+
 # 1 - Sugestão para estrutura de pastas
 
 - Com o objetivo de organizar o projeto estruture o projeto de modo que dentro da pasta "src" existam as pastas dos componentes chamada `components` e a pasta de paginas chamada `pages`. Na pasta `components` devem ser criados os componentes funcionais do projeto e na `pasta` page deve conter cada aba da pagina da loja `drip-store`, contendo somente a chamada dos componentes criados. Essa organização facilitará a criação de rotas dentro do arquivo `App.js`.
